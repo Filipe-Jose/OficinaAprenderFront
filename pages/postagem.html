@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oficina Aprender+ — Nova Postagem</title>
+  <link rel="stylesheet" href="../assets/css/global.css"/>
+  <link rel="stylesheet" href="../assets/css/postagem.css"/>
+</head>
+<body>
+
+  <!-- Fundo decorativo -->
+  <div class="bg-decor" aria-hidden="true">
+    <span class="blob1"></span>
+    <span class="blob2"></span>
+  </div>
+
+  <!-- Botão de tema -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar modo escuro">
+    <span class="icon" id="themeIcon">🌙</span>
+    <span id="themeLabel">Modo Escuro</span>
+  </button>
+
+  <!-- Card principal -->
+  <div class="card" role="main">
+
+    <!-- Cabeçalho -->
+    <div class="page-header">
+      <div class="page-header-icon">✏️</div>
+      <div class="page-header-text">
+        <h1>Nova Postagem</h1>
+        <p>Crie um registro, orientação ou relatório para seus alunos.</p>
+      </div>
+    </div>
+
+    <!-- Aviso de back-end pendente -->
+    <div class="backend-notice" role="note">
+      <span class="notice-icon">⚠️</span>
+      <p>
+        O endpoint <code>POST /publicacoes</code> ainda não foi implementado no back-end.
+        O formulário valida e simula o envio normalmente — quando o controller estiver pronto,
+        basta descomentar o bloco <code>REQUISIÇÃO REAL</code> em <code>postagem.js</code>.
+      </p>
+    </div>
+
+    <!-- Formulário -->
+    <form id="postagem" novalidate>
+
+      <div class="fields-grid">
+
+        <!-- Título -->
+        <div class="field field-full">
+          <label class="field" for="titulo">Título</label>
+          <div class="input-wrap">
+            <span class="input-icon">📌</span>
+            <input type="text" id="titulo" name="titulo"
+                   placeholder="Ex: Sessão de leitura — João Pedro"/>
+          </div>
+        </div>
+
+        <!-- Tipo de postagem -->
+        <div class="field">
+          <label class="field" for="tipo_postagem">Tipo de postagem</label>
+          <div class="select-wrap">
+            <select id="tipo_postagem" name="tipo">
+              <option value="nenhum" hidden>Escolha um tipo…</option>
+              <option value="registro_sessao">Registro de sessão</option>
+              <option value="orientacao_familia">Orientação para família</option>
+              <option value="orientacao_escola">Orientação para escola</option>
+              <option value="evolucao">Evolução</option>
+              <option value="atividade">Atividade</option>
+              <option value="relatorio">Relatório</option>
+              <option value="comunicacao">Mensagem ou lembrete</option>
+              <option value="metas">Lista de metas</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Visibilidade -->
+        <div class="field">
+          <span class="section-label">Visibilidade</span>
+          <div class="radio-group" role="group" aria-label="Visibilidade da postagem">
+
+            <label class="radio-card">
+              <input type="radio" name="visibilidade" value="todos"/>
+              <div>
+                <div class="radio-label">🌐 Todos podem acessar</div>
+                <div class="radio-desc">Profissionais, família e escola</div>
+              </div>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="visibilidade" value="profissionais"/>
+              <div>
+                <div class="radio-label">🧠 Apenas profissionais</div>
+                <div class="radio-desc">Visível somente à equipe</div>
+              </div>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="visibilidade" value="privado"/>
+              <div>
+                <div class="radio-label">🔒 Só eu posso ver</div>
+                <div class="radio-desc">Nota privada do profissional</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Anexos -->
+      <div class="field field-full" style="margin-bottom: 22px;">
+        <span class="section-label">Anexos</span>
+        <div class="file-drop" id="file-drop">
+          <input type="file" id="anexos" name="anexos" multiple
+                 accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif"/>
+          <div class="file-drop-icon">📎</div>
+          <p>
+            <span>Clique para selecionar</span> ou arraste arquivos aqui<br/>
+            <small style="color: var(--text-muted); font-size:.75rem;">PDF, Word, Excel, imagens</small>
+          </p>
+        </div>
+        <div class="file-list" id="file-list"></div>
+      </div>
+
+      <!-- Editor de texto rico -->
+      <div class="field field-full">
+        <span class="section-label">Conteúdo da postagem</span>
+        <div class="editor-wrap">
+
+          <!-- Barra de ferramentas -->
+          <div class="toolbar" role="toolbar" aria-label="Ferramentas de formatação">
+
+            <button type="button" class="toolbar-btn" data-cmd="bold"
+                    onclick="formatar('bold')" title="Negrito (Ctrl+B)">
+              <b>N</b>
+            </button>
+            <button type="button" class="toolbar-btn" data-cmd="italic"
+                    onclick="formatar('italic')" title="Itálico (Ctrl+I)">
+              <i>I</i>
+            </button>
+            <button type="button" class="toolbar-btn" data-cmd="underline"
+                    onclick="formatar('underline')" title="Sublinhado (Ctrl+U)">
+              <u>S</u>
+            </button>
+
+            <div class="toolbar-divider" aria-hidden="true"></div>
+
+            <button type="button" class="toolbar-btn"
+                    onclick="formatar('justifyLeft')" title="Alinhar à esquerda">
+              &#8676;
+            </button>
+            <button type="button" class="toolbar-btn"
+                    onclick="formatar('justifyCenter')" title="Centralizar">
+              &#8596;
+            </button>
+            <button type="button" class="toolbar-btn"
+                    onclick="formatar('justifyRight')" title="Alinhar à direita">
+              &#8677;
+            </button>
+
+            <div class="toolbar-divider" aria-hidden="true"></div>
+
+            <button type="button" class="toolbar-btn"
+                    onclick="formatar('insertUnorderedList')" title="Lista com marcadores">
+              ☰
+            </button>
+            <button type="button" class="toolbar-btn"
+                    onclick="formatar('insertOrderedList')" title="Lista numerada">
+              ≡
+            </button>
+
+            <div class="toolbar-divider" aria-hidden="true"></div>
+
+            <select class="toolbar-select" id="fonte" title="Família da fonte">
+              <option value="DM Sans">DM Sans</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Arial">Arial</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Courier New">Courier New</option>
+            </select>
+
+            <select class="toolbar-select" id="tamanho-fonte" title="Tamanho da fonte">
+              <option value="0.75">8</option>
+              <option value="0.9">10</option>
+              <option value="1.0" selected>12</option>
+              <option value="1.15">14</option>
+              <option value="1.3">16</option>
+              <option value="1.5">18</option>
+              <option value="1.75">20</option>
+              <option value="2.0">24</option>
+            </select>
+
+          </div>
+
+          <!-- Área editável -->
+          <div class="editor" id="editor"
+               contenteditable="true"
+               data-placeholder="Descreva a sessão, orientação ou observação…"
+               role="textbox" aria-multiline="true"
+               aria-label="Conteúdo da postagem">
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="feedback" id="feedback" role="alert"></div>
+
+      <!-- Rodapé com botões -->
+      <div class="form-footer">
+        <button type="button" class="btn-secondary"
+                onclick="history.back()">
+          ← Voltar
+        </button>
+        <button type="submit" class="btn-primary" id="btn-enviar">
+          <div class="spinner"></div>
+          <span class="btn-text">Publicar postagem</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/postagem.js"></script>
+</body>
+</html>
