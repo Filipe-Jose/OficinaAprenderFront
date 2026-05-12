@@ -1,0 +1,22 @@
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-bar {
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
+    display: block;
+    margin: 20px 40px;
+}
