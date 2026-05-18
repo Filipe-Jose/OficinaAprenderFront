@@ -1,3 +1,10 @@
+/* cores */
+:root {
+  --bg:           #f0f4ff;
+  --border:       gainsboro;
+  --bg-button:      #3c5ae1
+}
+
 /* Reset */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -8,15 +15,78 @@
 body {
     display: flex;
     flex-direction: column;
+    height: 800px;
+    font-family: sans-serif;
+    background-color: var(--bg);
 }
 
 .nav-bar {
-    position: sticky;
+    position: fixed;
+    width: 100%;
+    max-height: 50px;
+    height: 100%;
     display: flex;
     flex-direction: row;
+    background-color: aliceblue;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo-img {
+    max-width: 40px;
+    padding: 4px;
+    background-color: var(--bg-button);
+    border-radius: 15px;
+    margin: 5px;
+    box-shadow: 0px 0px 6px -2px black;
+}
+
+.nav-btns {
+    margin-left: auto;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 5px;
+    gap: 5px;
+}
+
+.nav-btns button {
+    padding: 5px;
+    border-radius: 15px;
+    font-weight: bold;
+    transition: 0.5s ease;
+    width: 80px;
+}
+
+.nav-btns button:hover {
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    box-shadow: 1px 1px 4px -1px black;
+    width: 85px;
+}
+
+.btn-entrar {
+    border: none;
+    background-color: white;
+    box-shadow: 0px 0px 5px -3px black;
+}
+
+.btn-cadastrar {
+    border: none;
+    background-color: var(--bg-button);
+    color: white;
 }
 
 .main {
     display: block;
-    margin: 20px 40px;
+    margin-top: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+footer {
+    margin-top: auto;
+    background-color: rgb(55, 55, 55);
+    color: white;
+    padding: 30px 20px;
+    border-top: var(--border);
 }
