@@ -20,6 +20,7 @@ body {
     background-color: var(--bg);
 }
 
+/* Barra de navegação */
 .nav-bar {
     position: fixed;
     width: 100%;
@@ -75,6 +76,20 @@ body {
     background-color: var(--bg-button);
     color: white;
 }
+
+/* Animação do botão */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255, 255, 255, .3);
+  border-top-color: #000000;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  display: none;
+  margin: auto;
+}
+.btn-loading .spinner { display: block; }
+.btn-loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .main {
     display: block;
