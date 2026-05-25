@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aprender+ | Oficina</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+
+<div class="app">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">A+</div>
+      <div>
+        <div class="logo-text">Oficina Aprender+</div>
+        <div class="logo-sub">Profissional</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <!-- rendered by JS -->
+    </nav>
+    <div class="sidebar-user">
+      <button class="user-btn">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="avatar" alt="Perfil" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div class="avatar-initials" style="display:none;">AS</div>
+        <div style="flex:1; text-align:left;">
+          <div style="font-size:13px; font-weight:500;">Dra. Ana Silva</div>
+          <div style="font-size:12px; color:var(--muted);">Psicopedagoga</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN AREA ═══ -->
+  <div class="main-area" id="main-area">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<!-- ═══ MODAL: META ═══ -->
+<div class="modal-overlay" id="modal-goal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 class="modal-title" id="modal-goal-ttl">Nova Meta</h2>
+      <button class="modal-close" onclick="closeModal('modal-goal')">✕</button>
+    </div>
+    <form onsubmit="saveGoal(event)">
+      <div class="form-group">
+        <label class="form-label">Título da Meta *</label>
+        <input class="form-control" type="text" id="g-title" placeholder="Ex: Melhorar leitura silábica" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-control" id="g-desc" placeholder="Descreva a meta e o que se espera alcançar..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prazo</label>
+          <input class="form-control" type="date" id="g-deadline" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control" id="g-status">
+            <option value="pendente">⏳ Pendente</option>
+            <option value="em-andamento">🔄 Em andamento</option>
+            <option value="concluida">✅ Concluída</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Progresso</label>
+        <div class="range-row">
+          <input type="range" min="0" max="100" step="5" id="g-progress" oninput="document.getElementById('g-prog-val').textContent=this.value+'%'" />
+          <span class="range-val" id="g-prog-val">0%</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-goal')">Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="g-save-btn">Salvar Meta</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- SESSÃO -->
+<div class="modal-overlay" id="modal-session">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 class="modal-title">Registrar Conteúdo de Sessão</h2>
+      <button class="modal-close" onclick="closeModal('modal-session')">✕</button>
+    </div>
+    <form onsubmit="saveSession(event)">
+      <div class="form-group">
+        <label class="form-label">Data da Sessão *</label>
+        <input class="form-control" type="date" id="s-date" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Atividades Realizadas</label>
+        <textarea class="form-control" id="s-activities" placeholder="Descreva as atividades feitas durante a sessão..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Observações do Psicopedagogo</label>
+        <textarea class="form-control" id="s-obs" placeholder="Evolução, dificuldades, comportamento, engajamento..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estratégias Utilizadas</label>
+        <input class="form-control" type="text" id="s-strategies" placeholder="Ex: método fônico, jogos cooperativos..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Próximos Passos</label>
+        <textarea class="form-control" id="s-next" style="min-height:70px;" placeholder="O que será trabalhado na próxima sessão?"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-session')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">💾 Salvar Sessão</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: ADICIONAR MATERIAL À SESSÃO -->
+<div class="modal-overlay" id="modal-material">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 class="modal-title">Adicionar Material</h2>
+      <button class="modal-close" onclick="closeModal('modal-material')">✕</button>
+    </div>
+    <form onsubmit="saveMaterial(event)">
+      <input type="hidden" id="mat-student-id" />
+      <input type="hidden" id="mat-goal-id" />
+      <input type="hidden" id="mat-session-index" />
+      <div class="form-group">
+        <label class="form-label">Nome do material *</label>
+        <input class="form-control" id="mat-name" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL (link) *</label>
+        <input class="form-control" type="url" id="mat-url" required placeholder="https://..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-control" id="mat-desc" placeholder="Como foi usado?"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-material')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Material</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- MODAL: ADICIONAR MATERIAL À SESSÃO -->
+<div class="modal-overlay" id="modal-material">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 class="modal-title">Adicionar Material</h2>
+      <button class="modal-close" onclick="closeModal('modal-material')">✕</button>
+    </div>
+    <forx onsubmit="saveMaterial(event)">
+      <input type="hidden" id="mat-student-id" />
+      <input type="hidden" id="mat-goal-id" />
+      <input type="hidden" id="mat-session-index" />
+      <div class="form-group">
+        <label class="form-label">Nome do material *</label>
+        <input class="form-control" id="mat-name" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL (link) *</label>
+        <input class="form-control" type="url" id="mat-url" required placeholder="https://..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-control" id="mat-desc" placeholder="Como foi usado?"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-material')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Material</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/assets/js/script.js"></script>
+</body>
+</html>
