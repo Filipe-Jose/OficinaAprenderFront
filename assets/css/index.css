@@ -1,107 +1,81 @@
-/* cores */
-:root {
-  --bg:           #f0f4ff;
-  --border:       gainsboro;
-  --bg-button:      #3c5ae1
-}
-
-/* Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import url('../css/global.css');
 
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    font-family: sans-serif;
-    background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-/* Barra de navegação */
+/* --- Barra de navegação ------------------------------------ */
 .nav-bar {
-    position: fixed;
-    width: 100%;
-    max-height: 50px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    background-color: aliceblue;
-    border-bottom: 1px solid var(--border);
-}
-
-.logo-img {
-    max-width: 40px;
-    padding: 4px;
-    background-color: var(--bg-button);
-    border-radius: 15px;
-    margin: 5px;
-    box-shadow: 0px 0px 6px -2px black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-height: 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--cor-fundo-navbar);
+  border-bottom: 1px solid var(--cor-borda);
+  z-index: 100;
 }
 
 .nav-btns {
-    margin-left: auto;
-    margin-right: 5px;
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 5px;
-    gap: 5px;
+  margin-left: auto;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 5px;
+  gap: 5px;
 }
 
 .nav-btns button {
-    padding: 5px;
-    border-radius: 15px;
-    font-weight: bold;
-    transition: 0.5s ease;
-    width: 80px;
+  padding: 5px;
+  border-radius: var(--raio-botao);
+  font-weight: bold;
+  font-size: 0.9rem;
+  width: 90px;
+  height: 30px;
+  cursor: pointer;
+  transition: letter-spacing var(--transicao-media),
+              box-shadow var(--transicao-media),
+              width var(--transicao-media);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-btns button:hover {
-    letter-spacing: 0.5px;
-    text-decoration: underline;
-    box-shadow: 1px 1px 4px -1px black;
-    width: 85px;
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+  box-shadow: 1px 1px 4px -1px var(--cor-sombra);
+  width: 95px;
 }
 
 .btn-entrar {
-    border: none;
-    background-color: white;
-    box-shadow: 0px 0px 5px -3px black;
+  border: none;
+  background-color: var(--cor-branco);
 }
 
 .btn-cadastrar {
-    border: none;
-    background-color: var(--bg-button);
-    color: white;
+  border: none;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
 }
 
-/* Animação do botão */
-.spinner {
-  width: 18px; height: 18px;
-  border: 2px solid rgba(255, 255, 255, .3);
-  border-top-color: #000000;
-  border-radius: 50%;
-  animation: spin .7s linear infinite;
-  display: none;
-  margin: auto;
-}
-.btn-loading .spinner { display: block; }
-.btn-loading .btn-text { display: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
+/* --- Conteúdo principal ------------------------------------ */
 .main {
-    display: block;
-    margin-top: 60px;
-    margin-left: 40px;
-    margin-right: 40px;
+  display: block;
+  margin-top: 100px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
+/* --- Rodapé ------------------------------------------------ */
 footer {
-    margin-top: auto;
-    background-color: rgb(55, 55, 55);
-    color: white;
-    padding: 30px 20px;
-    border-top: var(--border);
+  margin-top: auto;
+  background-color: var(--cor-footer);
+  color: var(--cor-branco);
+  padding: 30px 20px;
 }

@@ -4,33 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrar | OficinaAprender+</title>
-  <link rel="stylesheet" href="../assets/css/login.css" type="text/css">
+  <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 <body>
-  <div class="bg">
-    <span class="blob"></span>
-  </div>
 
   <div class="card" role="main">
     <div class="card-header">
-      <button type="button" id="btn-voltar" class="btn-voltar">
+      <button type="button" id="btn-voltar" class="btn-voltar" aria-label="Voltar">
         &leftarrow;
       </button>
       <div class="logo">
-            <img src="../assets/icons/user-icon.png" class="logo-img">
+            <img src="../assets/icons/user-icon.png" class="logo-img" alt="Logo">
       </div>
     </div>
 
-    <form>
+    <form id="form-login" novalidate>
       <div class="campo">
-        <input type="email" name="email" id="email">
+        <input type="email" name="email" id="email" autocapitalize="email">
         <label for="email">Email</label>
       </div>
+      
       <div class="campo">
-        <button type="button" class="toggleSenha" id="toggleSenha">👁</button>
-        <input type="password" name="senha" id="senha">
+        <input type="password" name="senha" id="senha" autocomplete="current-password">
         <label for="senha">Senha</label>
+        <button type="button" class="toggle-senha" id="toggle-senha" aria-label="Mostrar senha"></button>
       </div>
+
+      <button type="submit" class="btn-entrar" id="btn-entrar">
+        <div class="spinner"></div>
+        <span class="btn-texto">Entrar</span>
+      </button>
     </form>
     
     <div class="card-footer">
@@ -38,6 +41,7 @@
     </div>
   </div>
 
+  <script src="../assets/js/utils.js"></script>
   <script src="../assets/js/login.js"></script>
 </body>
 </html>
