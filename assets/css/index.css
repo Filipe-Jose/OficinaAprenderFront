@@ -36,7 +36,7 @@ body {
   font-weight: bold;
   font-size: 0.9rem;
   width: 90px;
-  height: 30px;
+  height: 35px;
   cursor: pointer;
   transition: letter-spacing var(--transicao-media),
               box-shadow var(--transicao-media),
