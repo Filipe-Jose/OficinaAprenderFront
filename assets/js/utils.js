@@ -50,15 +50,26 @@ const Sessao = {
 /** Redireciona o usuário com um pequeno estado de carregamento no botão.
  * @param {HTMLButtonElement} botao
  * @param {string} destino
+ * @param {HTMLDivElement} btnTexto
  */
-function navegarCom(botao, destino) {
+function navegarCom(botao, destino, btnTexto) {
+  if (btnTexto) {
+    const textoAntigo = btnTexto.textContent;
+    btnTexto.textContent = "";
+  }
   botao.classList.add('btn-carregando');
   botao.disabled = true;
 
   // usa setTimeout para o spinner aparecer antes do redirect
-  setTimeout(() => {
+  try {
+    setTimeout(() => {
     window.location.href = destino;
   }, 80);
+  } finally {
+    if (btnTexto) {
+      btnTexto.textContent = textoAntigo;
+    }
+  }
 }
 
 /** Redireciona com base no role do usuário após o login.

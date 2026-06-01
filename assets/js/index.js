@@ -2,9 +2,11 @@ const btnEntrar    = document.getElementById('btn-entrar');
 const btnCadastrar = document.getElementById('btn-cadastrar');
 
 btnEntrar.addEventListener('click', () => {
-  navegarCom(btnEntrar, 'login.html');
+  const btnTexto = btnEntrar.querySelector(".btn-text");
+  navegarCom(btnEntrar, 'login.html', btnTexto);
 });
 
 btnCadastrar.addEventListener('click', () => {
-  navegarCom(btnCadastrar, 'cadastro.html');
+  const btnTexto = btnCadastrar.querySelector(".btn-text");
+  navegarCom(btnCadastrar, 'cadastro.html', btnTexto);
 });

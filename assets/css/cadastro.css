@@ -1,81 +1,58 @@
-/* cores — idênticas ao login */
-:root {
-  --bg:        #f0f4ff;
-  --border:    gainsboro;
-  --bg-button: #3c5ae1;
-}
-
-/* Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import url('../css/global.css');
 
 body {
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
-  letter-spacing: 0.006rem;
-  background-color: var(--bg);
-  min-height: 100vh;
 }
 
-/* card — idêntico ao login */
+/* --- Card central ------------------------------------------ */
 .card {
   display: flex;
   flex-direction: column;
   max-width: 500px;
   width: 70%;
   margin: auto;
-  background-color: rgb(197, 233, 255);
+  background-color: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-card);
   overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 45px;
 }
 
 .card-header {
   display: flex;
   flex-direction: row;
+  align-items: center;
   max-height: 60px;
   padding: 10px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--cor-overlay);
 }
 
+/* --- Botão voltar ------------------------------------------ */
 .btn-voltar {
   background-color: transparent;
   border: none;
   padding: 5px;
   margin: auto 40px;
   font-size: 1.5rem;
-  transition: 0.2s ease;
   width: 50px;
   height: 50px;
+  transition: transform var(--transicao-rapida);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-voltar:hover {
   transform: scale(1.1);
-  text-decoration: underline 1px;
 }
 
+/* --- Logo --------------------------------------------------- */
 .logo {
-  margin-left: auto;
-  margin-right: 40px;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: auto 40px auto auto;
 }
 
-.logo-img {
-  max-width: 40px;
-  padding: 4px;
-  background-color: var(--bg-button);
-  border-radius: 15px;
-  box-shadow: 0px 0px 6px -2px black;
-}
-
-/* form — idêntico ao login */
+/* --- Formulário -------------------------------------------- */
 form {
   padding: 40px;
   display: flex;
@@ -83,80 +60,141 @@ form {
   gap: 15px;
 }
 
+/* Label flutuante */
 .campo {
-  background-color: white;
-  border-radius: 8px;
+  position: relative;
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-texto);
+  border-radius: var(--raio-input);
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  align-items: center;
   padding: 3px;
-  border: 1px solid black;
-  transition: 0.5s ease;
+  transition: box-shadow var(--transicao-media);
+}
+
+.campo:focus-within {
+  box-shadow: 1px 1px 0 0 var(--cor-texto);
 }
 
 form input {
-  width: 100%;
+  flex: 1;
   height: 40px;
   outline: none;
   padding: 14px;
   border: none;
   background: transparent;
-}
-
-.campo:hover,
-.campo:focus-within {
-  box-shadow: 1px 1px 0.2px 0px black;
+  font-size: var(--tamanho-base);
+  color: var(--cor-texto);
 }
 
 form label {
-  width: 0%;
-  height: 0%;
-  position: relative;
-  top: 12px;
-  left: 20px;
-  color: gray;
-  font-size: 0.9rem;
-  padding: 0px 3px;
-  transition: 0.2s ease;
-  margin-left: -8px;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.toggleSenha {
   position: absolute;
-  border: none;
-  background-color: transparent;
-  font-size: 1.7rem;
-  margin: auto;
-  cursor: pointer;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  padding: 0 3px;
+  pointer-events: none;
+  transition: top var(--transicao-rapida),
+              left var(--transicao-rapida),
+              font-size var(--transicao-rapida),
+              background-color var(--transicao-rapida);
 }
 
-.label-focus {
-  width: fit-content;
-  top: -12px;
-  left: 15px;
-  background-color: white;
+/* Label no topo quando o campo tem foco ou está preenchido */
+.label-foco {
+  top: 0;
+  left: 10px;
+  font-size: 0.85rem;
+  background-color: var(--cor-branco);
   border-radius: 4px;
-  border-top: 1px solid black;
+  border-top: 1px solid var(--cor-texto);
 }
 
-/* laterais até metade */
-.label-focus::after {
+.label-foco::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 50%;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid var(--cor-texto);
+  border-right: 1px solid var(--cor-texto);
 }
 
-.input-focus {
-  margin-left: -40px;
+/* Desloca o input para dar espaço ao botão de senha */
+.input-foco {
+  padding-right: 40px;
 }
 
-/* tipo de conta */
+/* --- Botão mostrar/ocultar senha --------------------------- */
+.toggle-senha {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-texto-suave);
+  transition: color var(--transicao-rapida);
+}
+
+.toggle-senha:hover {
+  color: var(--cor-texto);
+}
+
+.toggle-senha svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* --- Botão de envio ---------------------------------------- */
+.btn-submit {
+  margin-top: 8px;
+  padding: 12px;
+  border: none;
+  border-radius: var(--raio-botao);
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transicao-rapida);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-submit:hover {
+  background-color: var(--cor-primaria-hover);
+}
+
+/* --- Aviso de erro ----------------------------------------- */
+.aviso-erro {
+  color: var(--cor-erro);
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: none;
+}
+
+/* --- Rodapé do card ---------------------------------------- */
+.card-footer {
+  margin-top: 20px;
+  padding: 30px 40px;
+  background-color: rgba(0, 0, 0, 0.08);
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* --- Topi de conta ---------------------------------------- */
 .campo-tipo {
   display: flex;
   flex-direction: column;
@@ -165,7 +203,7 @@ form label {
 
 .tipo-label {
   font-size: 0.85rem;
-  color: gray;
+  color: var(--cor-texto-suave);
   padding-left: 4px;
 }
 
@@ -178,12 +216,12 @@ form label {
   flex: 1;
   height: 40px;
   border: 1px solid black;
-  border-radius: 8px;
-  background-color: white;
+  border-radius: var(--raio-botao);
+  background-color: var(--cor-branco);
   font-family: inherit;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: var(--transicao-rapida);
 }
 
 .btn-tipo:hover {
@@ -191,52 +229,6 @@ form label {
 }
 
 .btn-tipo.selecionado {
-  background-color: var(--bg-button);
-  color: white;
-  border-color: var(--bg-button);
-}
-
-/* mensagem de erro */
-.erro-msg {
-  color: #c0392b;
-  font-size: 0.85rem;
-  min-height: 1rem;
-}
-
-/* botão enviar */
-.btn-cadastrar {
-  height: 46px;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--bg-button);
-  color: white;
-  font-size: 1rem;
-  font-family: inherit;
-  letter-spacing: 0.04rem;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-cadastrar:hover {
-  filter: brightness(1.15);
-}
-
-.btn-cadastrar:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* card-footer — idêntico ao login */
-.card-footer {
-  margin-top: 20px;
-  padding: 40px;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover, a:focus {
-  text-decoration: underline;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
 }

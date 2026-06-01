@@ -15,11 +15,11 @@ const SVG_OLHO_FECHADO = `
   </svg>`;
 
 /* --- Elementos -------------------------------------------- */
-const btnVoltar     = document.getElementById('btn-voltar');
-const btnToggleSenha = document.getElementById('toggle-senha');
-const inputSenha    = document.getElementById('senha');
-const formulario    = document.getElementById('form-login');
-const btnEntrar     = document.getElementById('btn-entrar');
+const btnVoltar       = document.getElementById('btn-voltar');
+const btnToggleSenha  = document.getElementById('toggle-senha');
+const inputSenha      = document.getElementById('senha');
+const formulario      = document.getElementById('form-login');
+const btnEntrar       = document.getElementById('btn-entrar');
 
 /* --- Label flutuante (utils.js) -------------------------- */
 inicializarCampos();
@@ -52,6 +52,7 @@ formulario.addEventListener('submit', async (evento) => {
     return;
   }
 
+  btnCadastrar.querySelector(".btn-text").textContent = "";
   btnEntrar.classList.add('btn-carregando');
   btnEntrar.disabled = true;
 
@@ -70,6 +71,7 @@ formulario.addEventListener('submit', async (evento) => {
     exibirErroFormulario(formulario, 'Não foi possível conectar ao servidor. Tente novamente.');
   } finally {
     btnEntrar.classList.remove('btn-carregando');
+    btnCadastrar.querySelector(".btn-text").textContent = "Entrar";
     btnEntrar.disabled = false;
   }
 });

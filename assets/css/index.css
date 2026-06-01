@@ -21,6 +21,10 @@ body {
   z-index: 100;
 }
 
+.logo {
+  margin-left: 10px;
+}
+
 .nav-btns {
   margin-left: auto;
   margin-right: 5px;
