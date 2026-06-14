@@ -15,9 +15,7 @@ const erro                  = document.querySelector('.erro');
 
 
 /* --- Voltar para a página inicial -------------------------- */
-btnVoltar.addEventListener('click', () => {
-  navegarCom(btnVoltar, 'index.html');
-});
+navegarCom(btnVoltar, 'index.html');
 
 /* --- Deixar toggleSenha funcional -------------------------- */
 toggleSenha(btnToggleSenha, inputSenha);

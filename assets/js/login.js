@@ -26,9 +26,7 @@ const erro            = document.querySelector('.erro');
 
 
 /* --- Voltar para a página inicial -------------------------- */
-btnVoltar.addEventListener('click', () => {
-  navegarCom(btnVoltar, 'index.html');
-});
+navegarCom(btnVoltar, 'index.html');
 
 
 /* --- Mostrar / ocultar senha ------------------------------ */

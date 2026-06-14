@@ -6,10 +6,12 @@ const API_BASE = 'http://localhost:8080';
  * @param {HTMLDivElement} btnTexto
  */
 function navegarCom(botao, destino) {
-  botao.disabled = true;
-  setTimeout(() => {
-    window.location.href = destino;
-  }, 80);
+  botao.addEventListener("click", () => {
+    botao.disabled = true;
+    setTimeout(() => {
+      window.location.href = destino;
+    }, 80);
+  })
 }
 
 /** Fazer toggle-senha
