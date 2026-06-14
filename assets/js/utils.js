@@ -3,6 +3,7 @@ const API_BASE = 'http://localhost:8080';
 /** Redireciona o usuário com um pequeno estado de carregamento no botão.
  * @param {HTMLButtonElement} botao
  * @param {string} destino
+ * @param {HTMLDivElement} btnTexto
  */
 function navegarCom(botao, destino) {
   botao.disabled = true;
