@@ -8,17 +8,17 @@
   --cor-texto-suave:    #6b7280;
   --cor-borda:          #d1d5db;
   --cor-branco:         #ffffff;
-  --cor-sombra:         rgba(0, 0, 0, 0.12);
+  --cor-sombra:         rgba(0, 0, 0, 0.1);
   --cor-overlay:        rgba(255, 255, 255, 0.2);
   --cor-footer:         #374151;
-  --cor-fundo-navbar:   aliceblue;
+  --cor-fundo-navbar:   #e2e8f1;
   --cor-erro:           #c0392b;
 
   /* Arredondamentos */
   --raio-card:    45px;
   --raio-input:   8px;
   --raio-botao:   15px;
-  --raio-logo:    15px;
+  --raio-logo:    20px;
 
   /* Tipografia */
   --fonte-base: sans-serif;
@@ -56,28 +56,9 @@ a:focus {
 
 /* --- Logo --------------------------------------------------- */
 .logo-img {
-  max-width: 40px;
-  padding: 4px;
+  max-width: 50px;
+  padding: 8px;
   background-color: var(--cor-primaria);
   border-radius: var(--raio-logo);
   box-shadow: 0 0 6px -2px var(--cor-sombra);
-}
-
-/* --- Spinner de carregamento (botões) ----------------------- */
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #000;
-  border-radius: 50%;
-  animation: girar 0.7s linear infinite;
-  display: none;
-  margin: auto;
-}
-
-.btn-carregando .spinner   { display: block; }
-.btn-carregando .btn-texto { display: none; }
-
-@keyframes girar {
-  to { transform: rotate(360deg); }
 }

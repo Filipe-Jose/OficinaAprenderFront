@@ -20,30 +20,40 @@
 
     <form id="form-cadastro">
       <div class="campo">
-        <input type="text" name="nome" id="nome" autocomplete="name">
         <label for="nome">Nome completo</label>
+        <input type="text" name="nome" id="nome">
       </div>
+
       <div class="campo">
-        <input type="email" name="email" id="email" autocomplete="email">
         <label for="email">Email</label>
+        <input type="email" name="email" id="email">
       </div>
+
       <div class="campo">
-        <button type="button" class="toggleSenha" id="toggleSenha">👁</button>
-        <input type="password" name="senha" id="senha" autocomplete="new-password">
-        <label for="senha">Senha</label>
-      </div>
-
-      <div class="campo-tipo">
-        <span class="tipo-label">Tipo de conta</span>
-        <div class="tipo-opcoes">
-          <button type="button" class="btn-tipo" data-role="ROLE_PROFISSIONAL">Profissional</button>
-          <button type="button" class="btn-tipo" data-role="ROLE_FAMILIA">Família</button>
-          <button type="button" class="btn-tipo" data-role="ROLE_ESCOLA">Escola</button>
+        <label for="senha">Criar senha:</label>
+        <div class="input-senha">
+          <input type="password" name="senha" id="senha">
+          <button type="button" class="toggle-senha" id="toggle-senha"></button>
         </div>
-        <input type="hidden" id="role" name="role">
       </div>
 
-      <p class="erro-msg" id="erro-msg"></p>
+      <div class="campo">
+        <label for="confirm-senha">Confirmar senha:</label>
+        <div class="input-senha">
+          <input type="password" name="confirm-senha" id="confirm-senha">
+          <button type="button" class="toggle-senha" id="toggle-confirm-senha"></button>
+        </div>
+      </div>
+
+      <div class="forca-senha">
+          <div class="barra">
+            <div class="progresso"></div>
+          </div>
+
+          <span class="texto-forca">Digite uma senha</span>
+      </div>
+
+      <div class="erro">Erro</div>
       <button type="submit" class="btn-cadastrar" id="btn-cadastrar">Criar conta</button>
     </form>
 
@@ -52,6 +62,7 @@
     </div>
   </div>
 
+  <script src="../assets/js/utils.js"></script>
   <script src="../assets/js/cadastro.js"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  max-height: 60px;
+  max-height: 80px;
   padding: 10px;
   background-color: var(--cor-overlay);
 }
@@ -60,86 +60,53 @@ form {
   gap: 15px;
 }
 
-/* Label flutuante */
 .campo {
   position: relative;
-  background-color: var(--cor-branco);
-  border: 1px solid var(--cor-texto);
-  border-radius: var(--raio-input);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 3px;
-  transition: box-shadow var(--transicao-media);
-}
-
-.campo:focus-within {
-  box-shadow: 1px 1px 0 0 var(--cor-texto);
-}
-
-form input {
-  flex: 1;
-  height: 40px;
-  outline: none;
-  padding: 14px;
-  border: none;
-  background: transparent;
-  font-size: var(--tamanho-base);
-  color: var(--cor-texto);
-}
-
-form label {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--cor-texto-suave);
-  font-size: 0.9rem;
-  padding: 0 3px;
-  pointer-events: none;
-  transition: top var(--transicao-rapida),
-              left var(--transicao-rapida),
-              font-size var(--transicao-rapida),
-              background-color var(--transicao-rapida);
-}
-
-/* Label no topo quando o campo tem foco ou está preenchido */
-.label-foco {
-  top: 0;
-  left: 10px;
-  font-size: 0.85rem;
-  background-color: var(--cor-branco);
-  border-radius: 4px;
-  border-top: 1px solid var(--cor-texto);
-}
-
-.label-foco::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 50%;
-  border-left: 1px solid var(--cor-texto);
-  border-right: 1px solid var(--cor-texto);
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Desloca o input para dar espaço ao botão de senha */
-.input-foco {
-  padding-right: 40px;
+.campo label {
+  padding: 0px 0px 4px 10px;
+  color: var(--cor-texto-suave);
+}
+
+.campo input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: var(--raio-botao);
+  padding: 10px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.campo input:hover, .campo input:focus {
+  box-shadow: 1px 2px black;
+}
+
+.input-senha {
+  position: relative;
+}
+
+.input-senha input {
+  width: 100%;
+  padding-right: 40px; /* espaço para o ícone */
 }
 
 /* --- Botão mostrar/ocultar senha --------------------------- */
 .toggle-senha {
+  width: 20px;
+  height: 20px;
   position: absolute;
   right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
   border: none;
-  background: transparent;
   cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--cor-texto-suave);
   transition: color var(--transicao-rapida);
 }
@@ -166,10 +133,6 @@ form label {
   font-weight: bold;
   cursor: pointer;
   transition: background-color var(--transicao-rapida);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
 }
 
 .btn-entrar:hover {
@@ -177,18 +140,17 @@ form label {
 }
 
 /* --- Aviso de erro ----------------------------------------- */
-.aviso-erro {
+.erro {
   color: var(--cor-erro);
-  font-size: 0.85rem;
-  margin-top: 4px;
+  font-size: 0.9rem;
+  margin: 4px 0px 0px 10px;
   display: none;
 }
 
 /* --- Rodapé do card ---------------------------------------- */
 .card-footer {
-  margin-top: 20px;
   padding: 30px 40px;
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: var(--cor-sombra);
   font-size: 0.9rem;
   text-align: center;
   color: var(--cor-texto-suave);

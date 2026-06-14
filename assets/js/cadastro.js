@@ -1,98 +1,124 @@
-const API_URL = "http://localhost:8080";
+/* --- Elementos -------------------------------------------- */
+const btnVoltar             = document.getElementById('btn-voltar');
+const btnToggleSenha        = document.getElementById('toggle-senha');
+const inputNome             = document.getElementById('nome');
+const inputEmail            = document.getElementById('email');
+const btnToggleConfirmSenha = document.getElementById('toggle-confirm-senha');
+const inputSenha            = document.getElementById('senha');
+const inputConfirmSenha     = document.getElementById('confirm-senha')
+const formulario            = document.getElementById('form-cadastro');
+const btnCadastrar          = document.getElementById('btn-cadastrar');
+const barra                 = document.querySelector('.progresso');
+const forcaSenha            = document.querySelector('.forca-senha');
+const textoForca            = document.querySelector('.texto-forca');
+const erro                  = document.querySelector('.erro');
 
-// voltar para index
-const btnVoltar = document.getElementById("btn-voltar");
-btnVoltar.addEventListener("click", () => {
-    btnVoltar.disabled = true;
-    try {
-        window.location.href = "index.html";
-    } catch (erro) {
-        console.error(erro);
-    } finally {
-        btnVoltar.disabled = false;
-    }
-})
 
-// CSS dos inputs — mesma lógica do login
-const inputs = document.querySelectorAll("input:not([type='hidden'])");
-const labels = document.querySelectorAll("label");
-for (i = 0; i < inputs.length; i++) {
-    let input = inputs[i];
-    let label = labels[i];
-
-    input.addEventListener("focusin", () => {
-        label.classList.add("label-focus");
-        input.classList.add("input-focus");
-    })
-
-    input.addEventListener("focusout", () => {
-        if (input.value === "") {
-            label.classList.remove("label-focus");
-            input.classList.remove("input-focus");
-        }
-    })
-}
-
-// toggleSenha
-const btnToggleSenha = document.getElementById("toggleSenha")
-const inputSenha = document.getElementById("senha")
-btnToggleSenha.addEventListener('click', () => {
-    const visible = inputSenha.type === 'text';
-    inputSenha.type = visible ? 'password' : 'text';
-    btnToggleSenha.textContent = visible ? '👁' : "🙈";
+/* --- Voltar para a página inicial -------------------------- */
+btnVoltar.addEventListener('click', () => {
+  navegarCom(btnVoltar, 'index.html');
 });
 
-// seleção de tipo de conta
-const btnsTipo = document.querySelectorAll(".btn-tipo");
-const inputRole = document.getElementById("role");
-btnsTipo.forEach(btn => {
-    btn.addEventListener("click", () => {
-        btnsTipo.forEach(b => b.classList.remove("selecionado"));
-        btn.classList.add("selecionado");
-        inputRole.value = btn.dataset.role;
-    })
-})
+/* --- Deixar toggleSenha funcional -------------------------- */
+toggleSenha(btnToggleSenha, inputSenha);
+toggleSenha(btnToggleConfirmSenha, inputConfirmSenha);
 
-// envio do formulário
-const form = document.getElementById("form-cadastro");
-const btnCadastrar = document.getElementById("btn-cadastrar");
-const erroMsg = document.getElementById("erro-msg");
+/* --- Força da senha -------------------------- */
+let nivelSenha;
+inputSenha.addEventListener('input', () => {  
+  const senha = inputSenha.value;
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    erroMsg.textContent = "";
+  if (senha.length === 0) {
+    barra.style.width = '0%';
+    forcaSenha.style.display = "none";
+  } else {
+    forcaSenha.style.display = "block";
+    
+    nivelSenha = 0;
 
-    const nome  = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value;
-    const role  = inputRole.value;
+    if (senha.length >= 8) nivelSenha++; // tamanho > 8
+    if (/[A-Z]/.test(senha)) nivelSenha++; // letra maiúscula
+    if (/[a-z]/.test(senha)) nivelSenha++; // letra minúscula
+    if (/\d/.test(senha)) nivelSenha++; // número
+    if (/[^A-Za-z0-9]/.test(senha)) nivelSenha++; // símbolo
 
-    if (!nome || !email || !senha || !role) {
-        erroMsg.textContent = "Preencha todos os campos.";
-        return;
+    switch (nivelSenha) {
+        case 0:
+        case 1:
+        barra.style.width = '20%';
+        barra.style.backgroundColor = '#dc3545';
+        textoForca.textContent = 'Senha muito fraca';
+        break;
+
+        case 2:
+        barra.style.width = '40%';
+        barra.style.backgroundColor = '#fd7e14';
+        textoForca.textContent = 'Senha fraca';
+        break;
+
+        case 3:
+        barra.style.width = '60%';
+        barra.style.backgroundColor = '#ffc107';
+        textoForca.textContent = 'Senha média';
+        break;
+
+        case 4:
+        barra.style.width = '80%';
+        barra.style.backgroundColor = '#20c997';
+        textoForca.textContent = 'Senha forte';
+        break;
+
+        case 5:
+        barra.style.width = '100%';
+        barra.style.backgroundColor = '#198754';
+        textoForca.textContent = 'Senha muito forte';
+        break;
     }
+  }
+});
 
+
+/* --- Submit do formulário -------------------------- */
+formulario.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  erro.style.display = 'none';
+
+  const nome = inputNome.value.trim();
+  const email = inputEmail.value.trim();
+  const senha = inputSenha.value;
+  const confirmSenha = inputConfirmSenha.value;
+
+  if (nome === "" || email === "" || senha === "" || confirmSenha == "") {
+    erro.textContent = 'Preencha todos os campos.';
+    erro.style.display = 'block';
+    return;
+  } else if (senha !== confirmSenha) {
+    erro.textContent = 'As senhas não coincidem.';
+    erro.style.display = 'block';
+    return;
+  } else if (nivelSenha < 4) {
+    erro.textContent = 'A senha é muito fraca.';
+    erro.style.display = 'block';
+    return;
+  }
+
+  try {
     btnCadastrar.disabled = true;
-    btnCadastrar.textContent = "Criando conta…";
 
-    try {
-        const resposta = await fetch(`${API_URL}/usuarios/criar`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, email, senha, role }),
-        });
+    await apiPost('/usuarios/criar', {
+      nome,
+      email,
+      senha,
+      role: 'PROFISSIONAL'
+    });
 
-        if (resposta.ok) {
-            window.location.href = "login.html";
-        } else {
-            const texto = await resposta.text();
-            erroMsg.textContent = texto || "Erro ao criar conta. Tente novamente.";
-        }
-    } catch (erro) {
-        console.error(erro);
-        erroMsg.textContent = "Não foi possível conectar ao servidor.";
-    } finally {
-        btnCadastrar.disabled = false;
-        btnCadastrar.textContent = "Criar conta";
-    }
-})
+    window.location.href = 'login.html';
+
+  } catch (e) {
+    erro.textContent = e.message;
+    erro.style.display = 'block';
+  } finally {
+    btnCadastrar.disabled = false;
+  }
+});

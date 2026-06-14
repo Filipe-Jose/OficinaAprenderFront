@@ -14,20 +14,22 @@ const SVG_OLHO_FECHADO = `
     <line x1="1" y1="1" x2="23" y2="23"/>
   </svg>`;
 
-/* --- Elementos -------------------------------------------- */
-const btnVoltar     = document.getElementById('btn-voltar');
-const btnToggleSenha = document.getElementById('toggle-senha');
-const inputSenha    = document.getElementById('senha');
-const formulario    = document.getElementById('form-login');
-const btnEntrar     = document.getElementById('btn-entrar');
 
-/* --- Label flutuante (utils.js) -------------------------- */
-inicializarCampos();
+/* --- Elementos -------------------------------------------- */
+const btnVoltar       = document.getElementById('btn-voltar');
+const btnToggleSenha  = document.getElementById('toggle-senha');
+const inputSenha      = document.getElementById('senha');
+const inputEmail      = document.getElementById('email');
+const formulario      = document.getElementById('form-login');
+const btnEntrar       = document.getElementById('btn-entrar');
+const erro            = document.querySelector('.erro');
+
 
 /* --- Voltar para a página inicial -------------------------- */
 btnVoltar.addEventListener('click', () => {
   navegarCom(btnVoltar, 'index.html');
 });
+
 
 /* --- Mostrar / ocultar senha ------------------------------ */
 btnToggleSenha.innerHTML = SVG_OLHO_ABERTO;
@@ -39,37 +41,36 @@ btnToggleSenha.addEventListener('click', () => {
   btnToggleSenha.setAttribute('aria-label', visivel ? 'Mostrar senha' : 'Ocultar senha');
 });
 
-/* --- Envio do formulário ---------------------------------- */
-formulario.addEventListener('submit', async (evento) => {
-  evento.preventDefault();
-  limparErroFormulario(formulario);
 
-  const email = document.getElementById('email').value.trim();
+/* --- Submit do formulário ------------------------------ */
+formulario.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  erro.style.display = 'none';
+
+  const email = inputEmail.value.trim();
   const senha = inputSenha.value;
 
-  if (!email || !senha) {
-    exibirErroFormulario(formulario, 'Preencha o e-mail e a senha.');
+  if (email === "" || senha === "") {
+    erro.textContent = 'Preencha todos os campos.';
+    erro.style.display = 'block';
     return;
-  }
-
-  btnEntrar.classList.add('btn-carregando');
-  btnEntrar.disabled = true;
+  } else 
 
   try {
-    const { ok, status, dados } = await requisicaoAPI('/auth/login', 'POST', { email, senha });
+    btnEntrar.disabled = true;
 
-    if (ok) {
-      Sessao.salvar(dados.token, dados.email, dados.role);
-      redirecionarPorRole(dados.role);
-    } else {
-      const msg = typeof dados === 'string' ? dados : 'E-mail ou senha inválidos.';
-      exibirErroFormulario(formulario, msg);
-    }
-  } catch (erro) {
-    console.error('Erro de conexão:', erro);
-    exibirErroFormulario(formulario, 'Não foi possível conectar ao servidor. Tente novamente.');
+    const resposta = await apiPost('/auth/login', {email, senha});
+
+    localStorage.setItem('token', resposta.token);
+    localStorage.setItem('email', resposta.email);
+
+    window.location.href = 'dashboard.html';
+
+  } catch (e) {
+    erro.textContent = e.message;
+    erro.style.display = 'block';
   } finally {
-    btnEntrar.classList.remove('btn-carregando');
     btnEntrar.disabled = false;
   }
 });

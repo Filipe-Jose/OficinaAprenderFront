@@ -20,20 +20,20 @@
 
     <form id="form-login" novalidate>
       <div class="campo">
-        <input type="email" name="email" id="email" autocapitalize="email">
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email">
       </div>
       
       <div class="campo">
-        <input type="password" name="senha" id="senha" autocomplete="current-password">
-        <label for="senha">Senha</label>
-        <button type="button" class="toggle-senha" id="toggle-senha" aria-label="Mostrar senha"></button>
+        <label for="senha">Senha:</label>
+        <div class="input-senha">
+          <input type="password" name="senha" id="senha">
+          <button type="button" class="toggle-senha" id="toggle-senha"></button>
+        </div>
       </div>
 
-      <button type="submit" class="btn-entrar" id="btn-entrar">
-        <div class="spinner"></div>
-        <span class="btn-texto">Entrar</span>
-      </button>
+      <div class="erro">Erro</div>
+      <button type="submit" class="btn-entrar" id="btn-entrar">Entrar</button>
     </form>
     
     <div class="card-footer">
