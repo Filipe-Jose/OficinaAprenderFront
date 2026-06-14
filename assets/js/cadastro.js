@@ -97,7 +97,7 @@ formulario.addEventListener('submit', async (event) => {
     erro.textContent = 'As senhas não coincidem.';
     erro.style.display = 'block';
     return;
-  } else if (nivelSenha < 4) {
+  } else if (nivelSenha < 5) {
     erro.textContent = 'A senha é muito fraca.';
     erro.style.display = 'block';
     return;
@@ -109,8 +109,7 @@ formulario.addEventListener('submit', async (event) => {
     await apiPost('/usuarios/criar', {
       nome,
       email,
-      senha,
-      role: 'PROFISSIONAL'
+      senha
     });
 
     window.location.href = 'login.html';
