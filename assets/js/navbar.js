@@ -7,6 +7,10 @@ const btnComunicacao  = document.getElementById('btn-comunicacao');
 const btnRelatorios   = document.getElementById('btn-relatorios');
 const btnConquistas   = document.getElementById('btn-conquistas');
 
+const imgUser         = document.getElementById('user-img');
+const nomeUser        = document.getElementById('user-name');
+const formacaoUser    = document.getElementById('user-formacao');
+
 let navbarFechada = false;
 
 btnToggleBarra.addEventListener('click', () => {
@@ -26,3 +30,31 @@ navegarCom(btnAtividades, "atividades.html");
 navegarCom(btnComunicacao, "comunicacao.html");
 navegarCom(btnRelatorios, "relatorios.html");
 navegarCom(btnConquistas, "conquistas.html");
+
+// Informações no footer
+async function setUserInfo() {
+  const email = localStorage.getItem('email');
+  if (!email) {
+    window.alert('Algo deu errado, faça o login novamente.');
+    window.location.href = 'login.html';
+    
+  }
+  const user = await apiGet(`/usuarios/email/${email}`);
+
+  let imgUrl = user.descricao.Fotourl;
+  let nome = user.descricao.nome;
+  let formacao = user.descricao.formacao;
+
+  if (nome.length > 15) {
+    nome = nome.slice(0, 15) + '...';
+  }
+  if (formacao.length > 15) {
+    formacao = formacao.slice(0, 15) + '...';
+  }
+
+  imgUser.src = `../assets/icons/${imgUrl}`;
+  nomeUser.textContent = nome;
+  formacaoUser.textContent = formacao;
+}
+
+setUserInfo();

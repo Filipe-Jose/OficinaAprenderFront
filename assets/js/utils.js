@@ -69,3 +69,28 @@ async function apiPost(endpoint, dados) {
 
   return conteudo;
 }
+
+async function apiGet(endpoint) {
+  const resposta = await fetch(`${API_BASE}${endpoint}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  let conteudo;
+
+  try {
+    conteudo = await resposta.json();
+  } catch {
+    conteudo = await resposta.text();
+  }
+
+  if (!resposta.ok) {
+    throw new Error(
+      typeof conteudo === 'string'? conteudo : 'Erro ao comunicar com o servidor.'
+    );
+  }
+
+  return conteudo;
+}
